@@ -31,7 +31,7 @@ class _QuizScreenState extends State<QuizScreen> {
       });
     } catch (e) {
       print(e);
-      // Handle error appropriately
+      // You might want to display an error message to the user here.
     }
   }
 
@@ -62,7 +62,6 @@ class _QuizScreenState extends State<QuizScreen> {
     return ElevatedButton(
       onPressed: _answered ? null : () => _submitAnswer(option),
       child: Text(option),
-      style: ElevatedButton.styleFrom(primary: Colors.blue),
     );
   }
 
@@ -78,7 +77,10 @@ class _QuizScreenState extends State<QuizScreen> {
       return Scaffold(
         appBar: AppBar(title: Text("Quiz App")),
         body: Center(
-          child: Text('Quiz Finished! Your Score: $_score/${_questions.length}'),
+          child: Text(
+            'Quiz Finished! Your Score: $_score/${_questions.length}',
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          ),
         ),
       );
     }
