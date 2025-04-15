@@ -15,6 +15,7 @@ class _QuizScreenState extends State<QuizScreen> {
   bool _answered = false;
   String _selectedAnswer = "";
   String _feedbackText = "";
+  String? _errorMessage; // Added error message state
 
   @override
   void initState() {
@@ -31,7 +32,11 @@ class _QuizScreenState extends State<QuizScreen> {
       });
     } catch (e) {
       print(e);
-      // You might want to display an error message to the user here.
+      // Set the error message and stop loading so the user sees feedback
+      setState(() {
+        _errorMessage = e.toString();
+        _loading = false;
+      });
     }
   }
 
@@ -71,6 +76,12 @@ class _QuizScreenState extends State<QuizScreen> {
       return Scaffold(
         appBar: AppBar(title: Text("Quiz App")),
         body: Center(child: CircularProgressIndicator()),
+      );
+    }
+    if (_errorMessage != null) {
+      return Scaffold(
+        appBar: AppBar(title: Text("Quiz App")),
+        body: Center(child: Text("Error loading questions: $_errorMessage")),
       );
     }
     if (_currentQuestionIndex >= _questions.length) {
