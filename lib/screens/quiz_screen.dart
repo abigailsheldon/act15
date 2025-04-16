@@ -30,15 +30,17 @@ class _QuizScreenState extends State<QuizScreen> {
         _questions = questions;
         _loading = false;
       });
-    } catch (e) {
-      print(e);
-      // Set the error message and stop loading so the user sees feedback
+    } catch (e, stackTrace) {
+      print("Error loading questions: $e");
+      print("Stack trace: $stackTrace");
       setState(() {
         _errorMessage = e.toString();
         _loading = false;
       });
     }
   }
+
+
 
   void _submitAnswer(String selectedAnswer) {
     setState(() {
